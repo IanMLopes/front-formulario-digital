@@ -91,6 +91,7 @@ export default {
 
       async  created() {
           await DataServices.buscar(this.armazenar_termo,  this.nr_atendimento).then(response => {
+            console.log("AAA", response.data[0].HTML_FORM);
                     this.paghtml = response.data[0].HTML_FORM;
                 }) 
                  this.mudaAltura()               
@@ -174,19 +175,19 @@ let restore_array = []; //aaaaaa
 let index = -1;  //aaaaaa
 
 // Handle Colors
-// var colors = document.getElementsByClassName('colors')[0];
+var colors = document.getElementsByClassName('colors')[0];
 
-// colors.addEventListener('click', function(event) {
-//   context.strokeStyle = event.target.value || 'black';
-// });
+colors.addEventListener('click', function(event) {
+  context.strokeStyle = event.target.value || 'black';
+});
 
 // Handle Brushes
-// var brushes = document.getElementsByClassName('brushes')[0];
+var brushes = document.getElementsByClassName('brushes')[0];
 
-// brushes.addEventListener('click', function(event) {
-//   context.lineWidth = event.target.value || 1;
-//   console.log("tetttt",  context.lineWidth  )
-// });
+brushes.addEventListener('click', function(event) {
+  context.lineWidth = event.target.value || 1;
+  console.log("tetttt",  context.lineWidth  )
+});
 
 
 // Mouse Down Event
@@ -283,8 +284,10 @@ function setMouseCoordinates(event) {
   var rect = canvas.getBoundingClientRect();
 
 if(event.type == 'touchmove'){
-   mouseX = event.touches[0].clientX - rect.left;
-   mouseY = event.touches[0].clientY - rect.top;
+   mouseX = event.changedTouches[0].clientX - rect.left;
+   mouseY = event.changedTouches[0].clientY - rect.top;
+  //  mouseX = event.touches[0].clientX - rect.left;
+  //  mouseY = event.touches[0].clientY - rect.top;
     // this.estilo = true
 }
 else {
@@ -325,7 +328,6 @@ restore_array = [];
 
 },
 }
-
 </script>
 
 <style scoped>
