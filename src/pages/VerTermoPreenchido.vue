@@ -37,7 +37,6 @@ export default {
 
 
 mounted(){
-console.log("naar", this.nr_atendimento)
  this.carregarDados()
 
 },
@@ -46,11 +45,8 @@ methods: {
 
     async carregarDados(){
 
-        console.log("sssss", this.mostrar_termo_id , this. nr_atendimento)
-
     await DataServices.listaFormTermos(this.nr_atendimento)
     .then(response => {
-        console.log("Objvertermo", response.data)
         this.termos_preenchidos  = response.data
     })
 },

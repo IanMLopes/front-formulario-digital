@@ -91,7 +91,6 @@ export default {
 
       async  created() {
           await DataServices.buscar(this.armazenar_termo,  this.nr_atendimento).then(response => {
-            console.log("AAA", response.data[0].HTML_FORM);
                     this.paghtml = response.data[0].HTML_FORM;
                 }) 
                  this.mudaAltura()               
@@ -144,7 +143,6 @@ mudaAltura() {
 async enviarDados(){
 
  let enviar = await DataServices.create(this.nr_atendimento, this.armazenar_termo, this.stringImg )
- console.log("NRNRNRNRNRNR",this.nr_atendimento, "TERMPTERMOTERMO", this.armazenar_termo, "IMGIMGIMGIMG",this.stringImg)
 
 alert("Enviado com Sucesso!")
 
@@ -186,7 +184,6 @@ var brushes = document.getElementsByClassName('brushes')[0];
 
 brushes.addEventListener('click', function(event) {
   context.lineWidth = event.target.value || 1;
-  console.log("tetttt",  context.lineWidth  )
 });
 
 
@@ -203,7 +200,6 @@ canvas.addEventListener('mousedown', function(event) {
 
 // Mouse Move Event
 canvas.addEventListener('mousemove', function(event) {
-  console.log("teste")
  
   setMouseCoordinates(event);
 
@@ -243,7 +239,6 @@ canvas.addEventListener('touchstart', function(event) {
 
 // Mouse Move Event
 canvas.addEventListener('touchmove', function(event) {
-  console.log("teste2")
  
   setMouseCoordinates(event);
 
@@ -259,7 +254,6 @@ canvas.addEventListener('touchend', function(event) {
  
   setMouseCoordinates(event);
   isDrawing = false;
-   console.log("touch event", event)
 
 if ( event.type != 'touchmove'){
   restore_array.push(context.getImageData(0, 0, canvas.width, canvas.height)) //aaaaaaa
@@ -271,7 +265,6 @@ if ( event.type != 'touchmove'){
 canvas.addEventListener('mouseup', function(event) {
   setMouseCoordinates(event);
   isDrawing = false;
-   console.log("mouse event", event)
 if ( event.type != 'mousemove'){
   restore_array.push(context.getImageData(0, 0, canvas.width, canvas.height)) //aaaaaaa
   index += 1
@@ -302,7 +295,6 @@ return {mouseX, mouseY}
 var clearButton = document.getElementById('clear');
 
 clearButton.addEventListener('click', function() {
-  console.log("limpar")
   context.clearRect(0, 0, canvas.width, canvas.height); 
 
   restore_array = [];

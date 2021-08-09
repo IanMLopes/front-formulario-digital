@@ -41,7 +41,6 @@ export default {
     },
 
 mounted(){
-console.log("nr", this.nr_atendimento)
 
 document.getElementById('screen').style.overflow = ''
 
@@ -53,7 +52,6 @@ methods: {
 
  mostrarTermo(termo_id, nr_atendimento){
 
-console.log("aaaa", termo_id, nr_atendimento)
 
 this.$router.push(`/vertermopreenchido/${termo_id}`)
 },
@@ -63,7 +61,6 @@ this.$router.push(`/vertermopreenchido/${termo_id}`)
     await DataServices.listaFormTermos(this.nr_atendimento)
     .then(response => {
         this.termos_preenchidos  = response.data
-           console.log("Obj",  this.termos_preenchidos )
     })
 },
 
