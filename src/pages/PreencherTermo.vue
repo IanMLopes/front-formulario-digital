@@ -53,7 +53,7 @@
       </div>
 
       <div >
-        <button class="salvar" @click="cap()">Salvar Formulário</button>
+        <button class="salvar" @click="cap()">Salvar Termo</button>
       <div class="brushes" style="display: none;">
           <button type="button" value="1"></button>
       </div>
@@ -61,10 +61,27 @@
       </div>  
     </div>
 
-<button class="button"  @click="$router.go(-1)" style="display: flex; z-index: 2" >
+
+     <div class="mb-4" style="margin: auto 0; margin-left: 25px; z-index:5 ">
+        <button
+        style = "height:50px; display: flex;  border-radius: 3px; 
+                border: #42b983 ;
+                position: fixed;
+                bottom: 20px;
+        
+        "
+        type="button"
+        class="btn btn-info"
+        @click="$router.go(-1)">
+        <img src="../assets/angle-left-solid.svg" alt="" style="width: 10px; margin: auto 0">
+       <span style="margin: auto 0; margin-left: 5px "> Voltar</span> 
+        </button>
+ </div>
+
+<!-- <button class="button"  @click="$router.go(-1)" style="display: flex; z-index: 2" >
      <img src="../assets/angle-left-solid.svg" alt="" style="width: 10px; margin: 0">
         <strong style="margin: auto 0; margin-left: 5px">  Voltar</strong>
-    </button> 
+    </button>  -->
 
   </div>
 
@@ -152,171 +169,88 @@ this.$router.push(`/listapreenchertermo/${this.nr_atendimento}`)
 },
  
 
-forcanvas() {
-var canvas = document.querySelector('#paint-canvas');
-var context = canvas.getContext("2d");
 
-// Specifications
-var  mouseX = 0;
-var mouseY = 0;
 
+forcanvas(){
+
+ var canvas = document.querySelector('#paint-canvas');
+ var context = canvas.getContext("2d");
+  var isIdle = true;
+
+let restore_array = []; //aaaaaa
+let index = 0;  //aaaaaa
 
 canvas.width  = canvas.offsetWidth;
 canvas.height = canvas.offsetHeight;
 
-context.strokeStyle = 'black'; // initial brush color
-context.lineWidth = 1;
+  function drawstart(event) {
+    console.log("EVENT", event)
+    context.beginPath();
+    var rect = canvas.getBoundingClientRect();
+    console.log("rect", rect)
 
-var isDrawing = false;
-
-let restore_array = []; //aaaaaa
-let index = -1;  //aaaaaa
-
-// Handle Colors
-var colors = document.getElementsByClassName('colors')[0];
-
-colors.addEventListener('click', function(event) {
-  context.strokeStyle = event.target.value || 'black';
-});
-
-// Handle Brushes
-var brushes = document.getElementsByClassName('brushes')[0];
-
-brushes.addEventListener('click', function(event) {
-  context.lineWidth = event.target.value || 1;
-});
-
-
-// Mouse Down Event
-canvas.addEventListener('mousedown', function(event) {
-  setMouseCoordinates(event);
-  isDrawing = true;
- 
-
-  // Start Drawing
-  context.beginPath();
-  context.moveTo(mouseX, mouseY);
-});
-
-// Mouse Move Event
-canvas.addEventListener('mousemove', function(event) {
- 
-  setMouseCoordinates(event);
-
-  if(isDrawing){
-    context.lineTo(mouseX, mouseY);
+    context.moveTo(event.clientX - rect.left, event.clientY - rect.top);
+        restore_array.push(context.getImageData(0, 0, canvas.width, canvas.height)) //aaaaaaa
+        index += 1
+    isIdle = false;
+  }
+  function drawmove(event) {
+    if (isIdle) return;
+    var rect = canvas.getBoundingClientRect();
+    context.lineTo(event.clientX - rect.left, event.clientY - rect.top);
     context.stroke();
-  }
-
-});
-
-// Mouse Up Event
-canvas.addEventListener('mouseup', function(event) {
-  setMouseCoordinates(event);
-  isDrawing = false;
-
-if ( event.type != 'mousemove'){
-  restore_array.push(context.getImageData(0, 0, canvas.width, canvas.height)) //aaaaaaa
-  index += 1
 
   }
-
-});
-
-// TOUCH
-
-// Mouse Down Event
-canvas.addEventListener('touchstart', function(event) {
-  setMouseCoordinates(event);
-  
-//  this.estilo1()
-  isDrawing = true;
-
-  // Start Drawing
-  context.beginPath();
-  context.moveTo(mouseX, mouseY);
-});
-
-// Mouse Move Event
-canvas.addEventListener('touchmove', function(event) {
- 
-  setMouseCoordinates(event);
-
-  if(isDrawing){
-    context.lineTo(mouseX, mouseY);
-    context.stroke();
+  function drawend(event) {
+    if (isIdle) return;
+    drawmove(event);
+    isIdle = true;
   }
+  function touchstart(event) { drawstart(event.touches[0]) }
+  function touchmove(event) { drawmove(event.touches[0]); event.preventDefault(); }
+  function touchend(event) { drawend(event.changedTouches[0]) }
 
-});
+  canvas.addEventListener('touchstart', touchstart, false);
+  canvas.addEventListener('touchmove', touchmove, false);
+  canvas.addEventListener('touchend', touchend, false);        
 
-// TOUCH
-canvas.addEventListener('touchend', function(event) {
- 
-  setMouseCoordinates(event);
-  isDrawing = false;
+  canvas.addEventListener('mousedown', drawstart, false);
+  canvas.addEventListener('mousemove', drawmove, false);
+  canvas.addEventListener('mouseup', drawend, false);
 
-if ( event.type != 'touchmove'){
-  restore_array.push(context.getImageData(0, 0, canvas.width, canvas.height)) //aaaaaaa
-  index += 1
-  }
-});
 
-// Mouse Up Event
-canvas.addEventListener('mouseup', function(event) {
-  setMouseCoordinates(event);
-  isDrawing = false;
-if ( event.type != 'mousemove'){
-  restore_array.push(context.getImageData(0, 0, canvas.width, canvas.height)) //aaaaaaa
-  index += 1
-  }
 
-});
-
-// TOUCH
-function setMouseCoordinates(event) {
-  var rect = canvas.getBoundingClientRect();
-
-if(event.type == 'touchmove'){
-   mouseX = event.changedTouches[0].clientX - rect.left;
-   mouseY = event.changedTouches[0].clientY - rect.top;
-  //  mouseX = event.touches[0].clientX - rect.left;
-  //  mouseY = event.touches[0].clientY - rect.top;
-    // this.estilo = true
-}
-else {
-   mouseX = event.clientX - rect.left;
-   mouseY = event.clientY - rect.top;
-}
-return {mouseX, mouseY}
-   
-}
-
-// Handle Clear Button
 var clearButton = document.getElementById('clear');
 
 clearButton.addEventListener('click', function() {
   context.clearRect(0, 0, canvas.width, canvas.height); 
 
   restore_array = [];
-  index = -1;
+  index = 1;
 }
 );
 
 var clearButton = document.getElementById('voltar');
 
 clearButton.addEventListener('click', function() {
+  console.log("AA")
 
 if (index <= 0){
-context.clearRect(0, 0, canvas.width, canvas.height); //aaa
+    console.log("BB", index)
+  index = 0;
+context.clearRect(0, 0, canvas.width, canvas.height); 
 restore_array = [];
-  index = -1;
+
 }else {
-  index -= 1;
-  restore_array.pop();
+  console.log("CC", index)
+  index--;
   context.putImageData(restore_array[index], 0, 0);
+  restore_array.pop();
 }
 });
-}
+
+
+},
 
 },
 }
@@ -339,13 +273,13 @@ html {
 }
 
 .buttons {
-   height: auto; display: flex; flex-direction: column; position: fixed; bottom: 20px; right: 20px;z-index:2
+   height: auto; display: block; flex-direction: column; position: fixed; bottom: 20px; right: 20px;z-index:2
 }
 .colors {
-   text-align: center;display: flex; flex-direction: column; width: 130px; 
+   width: 100%; text-align: center;display: flex; flex-direction: column; 
 }
 .salvar{
-   height: 50px; border: 1px solid #00000026;  border-radius:5px;  outline: none; background: #40b381;  cursor: pointer; padding: 12px; margin-top: 4px;
+  width: 100%; height: 50px; border: 1px solid #00000026;  border-radius:5px;  outline: none; background: #40b381;  cursor: pointer; padding: 12px; margin-top: 4px;
 }
 .editar{
  height: 50px; width:130px; text-align: center; border-radius:5px; border: 1px solid #00000026; cursor: pointer;
@@ -354,22 +288,17 @@ html {
  background: #3da779;  border: 1px solid #808080; 
 }
 #clear{
-  height: 50px; width:auto; text-align: center; border-radius:5px; border: 1px solid #00000026; cursor: pointer; margin-top: 4px
+  height: 50px; width:100%; text-align: center; border-radius:5px; border: 1px solid #00000026; cursor: pointer; margin-top: 4px
 }
 #voltar {
- height: 50px; text-align: center; border-radius:5px; border: 1px solid #00000026; cursor: pointer;  margin-top: 4px;
+ height: 50px; width: 100%; text-align: center; border-radius:5px; border: 1px solid #00000026; cursor: pointer;  margin-top: 4px;
 }
 #travar  {
- height: 50px; text-align: center; border-radius:5px; border: 1px solid #00000026; cursor: pointer;  margin-top: 4px; 
+display: block; width: 100% ; height: 50px; text-align: center; border-radius:5px; border: 1px solid #00000026; cursor: pointer;  margin-top: 4px; 
   
 }
 #clear:hover, #voltar:hover, #travar:hover {
   background-color: #e2e0e0;
 }
-
-.button {padding: 15px 8px; border-radius: 3px; background:#42b983; color: #000000; border:#42b983; position: fixed; left: 25px; bottom: 20px; font-size: 14px; z-index:1;
-}
-
-
 
 </style>

@@ -18,9 +18,16 @@
     </div>
     
 </div>
-    <button class="button" @click="$router.push(`/listartermospreenchidos/${nr_atendimento}`)" >
-        <strong>   Termos Preenchidos</strong>
-    </button>
+ <div class="mb-4" style="position: fixed; z-index:9; right: 30px; top: 90%; ">
+        <button
+        style = "height:50px"
+        type="button"
+        class="btn btn-info"
+        @click="$router.push(`/listartermospreenchidos/${nr_atendimento}`)">
+        Termos Preenchidos
+        </button>
+ </div>
+  
 
 </div>
 </template>

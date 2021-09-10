@@ -11,10 +11,23 @@
                         <img class="image-termo"   v-bind:src="termos.TERMO_IMAGE" />   
                 </div>
         </div>
-    <button class="button"  @click="$router.go(-1)" style="display: flex" >
-     <img src="../assets/angle-left-solid.svg" alt="" style="width: 10px; margin: 0">
-        <strong style="margin: auto 0; margin-left: 5px ">  Voltar </strong>
-    </button>   
+
+ <div class="mb-4" style="margin: auto 0; margin-left: 25px; z-index:5 ">
+        <button
+        style = "height:50px; display: flex;  border-radius: 3px; 
+                border: #42b983 ;
+                position: fixed;
+                bottom: 20px;
+        
+        "
+        type="button"
+        class="btn btn-info"
+        @click="$router.go(-1)">
+        <img src="../assets/angle-left-solid.svg" alt="" style="width: 10px; margin: auto 0">
+       <span style="margin: auto 0; margin-left: 5px "> Voltar</span> 
+        </button>
+ </div>
+
 </div>
 
 </template>

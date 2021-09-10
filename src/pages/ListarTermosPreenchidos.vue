@@ -18,9 +18,15 @@
 
 </div>
 
-  <button class="button" @click="$router.push(`/listapreenchertermo/${nr_atendimento}`)" >
-    <strong>  Preencher Termos </strong>
-  </button>
+ <div class="mb-4" style="position: fixed; z-index:9; right: 30px; top: 90%; ">
+        <button
+        style = "height:50px"
+        type="button"
+        class="btn btn-info"
+        @click="$router.push(`/listapreenchertermo/${nr_atendimento}`)">
+        Preencher Termos
+        </button>
+ </div>
 
 </div>
 </template>
@@ -50,7 +56,7 @@ document.getElementById('screen').style.overflow = ''
 
 methods: {
 
- mostrarTermo(termo_id, nr_atendimento){
+ mostrarTermo(termo_id){
 
 
 this.$router.push(`/vertermopreenchido/${termo_id}`)
