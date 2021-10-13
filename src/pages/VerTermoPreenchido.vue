@@ -3,29 +3,36 @@
 <div class="ver-termo">
         <div  v-for="termos in termos_preenchidos" :key="termos.NR_SEQ_TERMO_PADRAO">
 
-                <div v-if="termos.NR_SEQ_TERMO_PADRAO == mostrar_termo_id">   
+                <div  v-if="termos.NR_SEQ_TERMO_PADRAO == mostrar_termo_id">   
                     <div class="title">
-                    <h3> Número de Atendimento: {{termos.NR_ATENDIMENTO}}  </h3>
+                    <h3 class=" noPrint "> Número de Atendimento: {{termos.NR_ATENDIMENTO}}  </h3>
+                    <!-- <h3> Número de Atendimento: {{termos.NR_ATENDIMENTO}}  </h3> -->
                     <h3> {{termos.DS_TERMO}}  </h3>
                     </div>
                         <img class="image-termo"   v-bind:src="termos.TERMO_IMAGE" />   
                 </div>
         </div>
 
- <div class="mb-4" style="margin: auto 0; margin-left: 25px; z-index:5 ">
+ <div class="mb-4 noPrint " style="margin: auto 0; margin-left: 25px; z-index:5 ">
         <button
-        style = "height:50px; display: flex;  border-radius: 3px; 
-                border: #42b983 ;
-                position: fixed;
-                bottom: 20px;
-        
-        "
+        style = "height:50px; display: flex;  border-radius: 3px; border: #42b983; position: fixed; bottom: 20px;"
         type="button"
         class="btn btn-info"
         @click="$router.go(-1)">
         <img src="../assets/angle-left-solid.svg" alt="" style="width: 10px; margin: auto 0">
        <span style="margin: auto 0; margin-left: 5px "> Voltar</span> 
         </button>
+ </div>
+ <div class="mb-4 noPrint" style="margin: auto 0; z-index:5 ">
+    <button
+        style = "height:50px; display: flex; border-radius: 3px; border: #42b983; position: fixed; bottom: 20px; margin-left: 90% "
+        type="button"
+        class="btn btn-info"
+        @click="imprimir()"
+     >
+       <span style="margin: auto 0; margin-right: 5px "> Imprimir</span> 
+
+     </button>
  </div>
 
 </div>
@@ -64,6 +71,11 @@ methods: {
     })
 },
 
+ imprimir() {
+
+      window.print();
+    },
+
 },
     
 }
@@ -81,8 +93,8 @@ h3 {  font: 500 16px Roboto, sans-serif; margin-left: 10px; color: #333; border-
 .ver-termo .image-termo {
    position: relative !important;
    margin: 10px  auto !important;
-   left: 50%;
-   transform: translateX(-50%);
+   /* left: 50%; */
+   /* transform: translateX(-50%); */
 }
 
 .button {
@@ -94,9 +106,13 @@ h3 {  font: 500 16px Roboto, sans-serif; margin-left: 10px; color: #333; border-
     position: fixed;
     left: 25px;
     bottom: 20px;
-    font-size: 14px;
-    
-    
+    font-size: 14px;   
+}
+
+@media print {
+  .noPrint{
+    display:none;
+  }
 }
 
 </style>
