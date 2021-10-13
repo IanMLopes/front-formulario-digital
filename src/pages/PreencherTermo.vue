@@ -68,6 +68,7 @@
                 border: #42b983 ;
                 position: fixed;
                 bottom: 20px;
+                 z-index: 5
         
         "
         type="button"

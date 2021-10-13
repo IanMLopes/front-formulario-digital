@@ -3,19 +3,19 @@
 <div class="ver-termo">
         <div  v-for="termos in termos_preenchidos" :key="termos.NR_SEQ_TERMO_PADRAO">
 
-                <div  v-if="termos.NR_SEQ_TERMO_PADRAO == mostrar_termo_id">   
+                <div v-if="termos.NR_SEQ_TERMO_PADRAO == mostrar_termo_id">   
                     <div class="title">
                     <h3 class=" noPrint "> Número de Atendimento: {{termos.NR_ATENDIMENTO}}  </h3>
                     <!-- <h3> Número de Atendimento: {{termos.NR_ATENDIMENTO}}  </h3> -->
                     <h3> {{termos.DS_TERMO}}  </h3>
                     </div>
-                        <img class="image-termo"   v-bind:src="termos.TERMO_IMAGE" />   
+                        <img class="image-termo"  v-bind:src="termos.TERMO_IMAGE" />   
                 </div>
         </div>
 
  <div class="mb-4 noPrint " style="margin: auto 0; margin-left: 25px; z-index:5 ">
         <button
-        style = "height:50px; display: flex;  border-radius: 3px; border: #42b983; position: fixed; bottom: 20px;"
+        style = "height:50px; display: flex;  border-radius: 3px; border: #42b983; position: fixed; bottom: 20px; z-index:5 "
         type="button"
         class="btn btn-info"
         @click="$router.go(-1)">
