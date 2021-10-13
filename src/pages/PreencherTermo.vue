@@ -47,7 +47,7 @@
       <div class="colors" >
         <button type="button" value="#000000"  style=" display: none"></button>
          <button v-if="aplicar" id="travar" type="button"  style="background: #f76a6a" @click="aplicar = !aplicar; teste1()">Liberar</button>
-         <button v-else id="travar" type="button" style="background: #84f184" @click="aplicar = !aplicar" >Assinar</button>
+         <!-- <button v-else id="travar" type="button" style="background: #84f184" @click="aplicar = !aplicar" >Assinar</button> -->
         <button id="clear" type="button">Limpar</button>
         <button id="voltar" type="button">Desfazer</button>
       </div>
