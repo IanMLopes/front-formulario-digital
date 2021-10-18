@@ -30,9 +30,9 @@ export default {
      })
   },
 
-  // validarNrAtendimento:(nr_atendimento) => {
-  //   return http.get(`/usuarios/check?nr_atendimento=${nr_atendimento}`);
-  // },
+  validarNrAtendimento:(nr_atendimento) => {
+    return http.get(`/usuarios/check?nr_atendimento=${nr_atendimento}`);
+  },
 
   // nrExistir:(nr_atendimento) => {
   //   return http.get(`/usuarios/checkForm?nr_atendimento=${nr_atendimento}`);

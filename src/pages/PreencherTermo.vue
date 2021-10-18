@@ -92,7 +92,10 @@
 <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 
 <script>
-import DataServices from '../services/DataServices'
+import DataServices from '../services/DataServices';
+
+const Swal = require("sweetalert2");
+
 
 export default {
     
@@ -162,7 +165,7 @@ async enviarDados(){
 
  let enviar = await DataServices.create(this.nr_atendimento, this.armazenar_termo, this.stringImg )
 
-alert("Enviado com Sucesso!")
+this.mostrarMsg("Salvo com Sucesso! ")
 
 this.$router.push(`/listapreenchertermo/${this.nr_atendimento}`)
 
@@ -170,6 +173,13 @@ this.$router.push(`/listapreenchertermo/${this.nr_atendimento}`)
 },
  
 
+ mostrarMsg(titulo, sub, icon){
+       Swal.fire(
+          titulo,
+          sub,
+          icon
+        )
+    },
 
 
 forcanvas(){

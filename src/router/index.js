@@ -6,6 +6,7 @@ import ListaPreencherTermo from '../pages/ListaPreencherTermo'
 import PreencherTermo from '../pages/PreencherTermo'
 import ListarTermosPreenchidos from '../pages/ListarTermosPreenchidos'
 import VerTermoPreenchido from '../pages/VerTermoPreenchido'
+import SearchNr from '../pages/SearchNr'
 
 
 const BASE_URL = process.env.VUE_APP_FRONT_SET_URL;
@@ -17,6 +18,11 @@ export default new Router({
       mode: 'hash',
     routes:[
 
+        {
+            path: '/',
+            name: '/',
+            component: SearchNr
+        },
         {
             path: '/preenchertermo',
             name: 'preenchertermo',

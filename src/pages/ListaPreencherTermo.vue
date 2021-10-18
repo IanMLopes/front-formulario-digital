@@ -2,7 +2,7 @@
 <div>
        <img src="../assets/samel-health-tech-logo.png" alt="logo-samel">
 
-<div style="">
+<div>
      
     <div id="list">
         <div class="title">
@@ -13,18 +13,24 @@
 
             <li @click.prevent="armazenarTermo(termos.NR_SEQUENCIA)" 
                 :class="{ inactive: termos.status }"> {{termos.DS_TERMO}} </li>
-
             </ul>
     </div>
     
 </div>
- <div class="mb-4" style="position: fixed; z-index:9; right: 30px; top: 90%; ">
+ <div  class="mb-4" style="position: fixed; z-index:9; right: 30px; top: 85%; display:flex; flex-direction: column  ">
         <button
-        style = "height:50px"
+        style = "height:50px; margin-bottom:3px"
         type="button"
         class="btn btn-info"
         @click="$router.push(`/listartermospreenchidos/${nr_atendimento}`)">
         Termos Preenchidos
+        </button>
+        <button
+        style = "height:50px"
+        type="button"
+        class="btn btn-info"
+        @click="$router.push('/'), sair()">
+        Sair
         </button>
  </div>
   
@@ -74,6 +80,10 @@ async carregarDados(){
         this.buscarFormTermos()
     })
 },
+
+    sair(){
+       localStorage.clear();
+    },
 
     buscarFormTermos() {
 

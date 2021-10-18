@@ -18,13 +18,20 @@
 
 </div>
 
- <div class="mb-4" style="position: fixed; z-index:9; right: 30px; top: 90%; ">
+ <div class="mb-4" style="position: fixed; z-index:9; right: 30px; top: 85%; display:flex; flex-direction: column ">
         <button
-        style = "height:50px"
+        style = "height:50px; padding: 0 40px; margin-bottom:3px"
         type="button"
         class="btn btn-info"
         @click="$router.push(`/listapreenchertermo/${nr_atendimento}`)">
-        Preencher Termos
+        Termos
+        </button>
+        <button
+        style = "height:50px; padding: 0 40px"
+        type="button"
+        class="btn btn-info"
+        @click="$router.push('/'), sair()">
+        Sair
         </button>
  </div>
 
@@ -62,7 +69,11 @@ methods: {
 this.$router.push(`/vertermopreenchido/${termo_id}`)
 },
 
-    async carregarDados(){
+ sair(){
+       localStorage.clear();
+    },
+
+async carregarDados(){
 
     await DataServices.listaFormTermos(this.nr_atendimento)
     .then(response => {
